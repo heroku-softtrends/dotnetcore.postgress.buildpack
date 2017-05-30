@@ -4,7 +4,7 @@
 # fail fast
 set -e
 echo "Current stack ${STACK} version"
-if [ $STACK != "cedar-14" ] || [ $STACK != "heroku-16" ]; then
+if [ $STACK != "cedar-14" ] && [ $STACK != "heroku-16" ]; then
 	echo "Stack ${STACK} not supported" && exit 1
 fi
 
