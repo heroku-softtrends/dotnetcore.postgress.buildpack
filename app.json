@@ -1,5 +1,5 @@
 {
-  "name": "Asp.NetCore Web App With PostgreSQL",
+  "name": "Asp.NetCore Web App PostgreSQL",
   "description": "Asp.Net website using Asp.Net Core",
   "website": "http://www.softtrends.com/",
   "repository": "https://github.com/heroku-softtrends/dotnetcore.postgress.sample",
