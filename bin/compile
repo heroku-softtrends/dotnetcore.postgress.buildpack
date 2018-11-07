@@ -156,5 +156,5 @@ EOF
 
 print "Procfile setting"
 cat <<EOF >${BUILD_DIR}/Procfile
-web: dotnet ${HOME}/${PROJECT_NAME}.dll https://0.0.0.0:\$PORT ${CORE_ENV}
+web: dotnet ${HOME}/${PROJECT_NAME}.dll http://0.0.0.0:\$PORT ${CORE_ENV}
 EOF
