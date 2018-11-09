@@ -146,6 +146,6 @@ export PKG_CONFIG_PATH="\${HOME}/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:\${HOME
 EOF
 
 print "Procfile setting"
-cat <<EOF >${BUILD_DIR}/${PROJECT_NAME}/Procfile
-web: cd \${HOME}/${PROJECT_NAME} && dotnet ./${PROJECT_NAME}.dll http://0.0.0.0:\$PORT ${CORE_ENV}
+cat <<EOF >${BUILD_DIR}/Procfile
+web: cd \/app/${PROJECT_NAME} && dotnet ./${PROJECT_NAME}.dll http://0.0.0.0:\$PORT ${CORE_ENV}
 EOF
