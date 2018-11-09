@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir>
-export "$PATH:\$PATH"
-echo "PATH: $PATH"
+aws --version
 
 # fail fast
 set -e
