@@ -47,15 +47,6 @@ export_env_dir ${ENV_DIR}
 # Create Cache Directory
 mkdir -p ${CACHE_DIR}
 
-# Create Source Directory
-# If you compiled from build dirctory directly then dnu publish throws error due to directory name
-# contains underscore '_'. dnu will not support
-#SRC_DIR=`mktemp -d`
-# Move source code into temporary src dir
-#(
-#    shopt -s dotglob
-#    mv ${BUILD_DIR}/* ${SRC_DIR}
-#)
 print "Build Dir Path: ${BUILD_DIR}"
 
 # Find project.json
@@ -152,30 +143,6 @@ export INCLUDE_PATH="\${HOME}/.apt/usr/include:\${INCLUDE_PATH}"
 export CPATH="\${INCLUDE_PATH}"
 export CPPPATH="\${INCLUDE_PATH}"
 export PKG_CONFIG_PATH="\${HOME}/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:\${HOME}/.apt/usr/lib/i386-linux-gnu/pkgconfig:\${HOME}/.apt/usr/lib/pkgconfig:\${PKG_CONFIG_PATH}"
-EOF
-
-echo "-----> Fetching AWS CLI into slug"
-AWS_CLI_URL="https://s3.amazonaws.com/aws-cli/awscli-bundle.zip"
-curl --progress-bar -o /tmp/awscli-bundle.zip $AWS_CLI_URL
-unzip -qq -d "$BUILD_DIR/vendor" /tmp/awscli-bundle.zip
-
-INSTALL_DIR="/app/vendor/awscli"
-chmod +x /app/vendor/awscli-bundle/install
-/app/vendor/awscli-bundle/install -i $INSTALL_DIR
-chmod u+x $INSTALL_DIR/bin/aws
-
-export PATH=~/vendor/awscli/bin:${PATH}
-mkdir ~/.aws
-
-cat >> ~/.aws/credentials << EOF
-[default]
-aws_access_key_id = $AWS_KEY
-aws_secret_access_key = $AWS_SECRET_KEY
-EOF
-
-cat >> ~/.aws/config << EOF 
-[default]
-region = $AWS_REGION
 EOF
 
 print "Procfile setting"
