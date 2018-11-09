@@ -121,17 +121,17 @@ ln -s ${BUILD_DIR}/dotnet ${HOME}
 export PATH="${HOME}/dotnet:${PATH}"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 
+PROJECT_NAME=$(grep -Po '"'"outputName"'"\s*:\s*"\K([^"]*)'  ${PROJECT_JSON_FILE})
+
 print "dotnet restore all dependencies"
 dotnet restore ${PROJECT_JSON_FILE} --no-cache
 print "dotnet restore all dependencies completed"
 
 #dotnet pulish using project.json
 print "dotnet publish starts."
-echo "dotnet publish --output ${BUILD_DIR} --configuration ${CORE_CONFIG} ${PROJECT_JSON_FILE} --runtime ${CORE_RUNTIME}"
-dotnet publish --output ${BUILD_DIR} --configuration ${CORE_CONFIG} ${PROJECT_JSON_FILE} --runtime ${CORE_RUNTIME}
+echo "dotnet publish --output ${BUILD_DIR}/${PROJECT_NAME} --configuration ${CORE_CONFIG} ${PROJECT_JSON_FILE} --runtime ${CORE_RUNTIME}"
+dotnet publish --output ${BUILD_DIR}/${PROJECT_NAME} --configuration ${CORE_CONFIG} ${PROJECT_JSON_FILE} --runtime ${CORE_RUNTIME}
 print "dotnet publish ended."
-
-PROJECT_NAME=$(grep -Po '"'"outputName"'"\s*:\s*"\K([^"]*)'  ${PROJECT_JSON_FILE})
 print "${PROJECT_NAME}.dll has been created."
 
 mkdir -p ${BUILD_DIR}/.profile.d
@@ -146,6 +146,6 @@ export PKG_CONFIG_PATH="\${HOME}/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:\${HOME
 EOF
 
 print "Procfile setting"
-cat <<EOF >${BUILD_DIR}/Procfile
-web: dotnet ${HOME}/${PROJECT_NAME}.dll http://0.0.0.0:\$PORT ${CORE_ENV}
+cat <<EOF >${BUILD_DIR}/${PROJECT_NAME}/Procfile
+web: dotnet ${HOME}/${PROJECT_NAME}/${PROJECT_NAME}.dll http://0.0.0.0:\$PORT ${CORE_ENV}
 EOF
